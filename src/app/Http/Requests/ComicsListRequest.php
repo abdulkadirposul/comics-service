@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ComicsListRequest extends FormRequest
 {
+    const DEFAULT_COMICS_LENGTH = 10;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,7 +26,23 @@ class ComicsListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'xkcd_length' => 'int|max:30|min:0',
+            'poorly_draw_lines_length' => 'int|max:30|min:0'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if (!$this->has('xkcd_length')) {
+            $this->merge([
+                'xkcd_length' => self::DEFAULT_COMICS_LENGTH
+            ]);
+        }
+
+        if (!$this->has('poorly_draw_lines_length')) {
+            $this->merge([
+                'poorly_draw_lines_length' => self::DEFAULT_COMICS_LENGTH
+            ]);
+        }
     }
 }
