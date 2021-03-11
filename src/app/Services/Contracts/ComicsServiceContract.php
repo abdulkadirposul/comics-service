@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface ComicsServiceContract
 {
-    public function getList(int $xkcdLength, int $poorlyDrawLinesLength): Collection;
+    public function getList(int $xkcdLength, int $poorlyDrawLinesLength): array;
 }

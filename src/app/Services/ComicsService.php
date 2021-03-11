@@ -17,10 +17,11 @@ class ComicsService implements ComicsServiceContract
      * @return Collection
      * @throws AuthorizationException
      */
-    public function getList(int $xkcdLength, int $poorlyDrawLinesLength): Collection
+    public function getList(int $xkcdLength, int $poorlyDrawLinesLength): array
     {
         $collection = collect($this->getXKCDComics($xkcdLength));
-        return $collection->merge($this->getPoorlyDrawLines($poorlyDrawLinesLength));
+        $collection =  $collection->merge($this->getPoorlyDrawLines($poorlyDrawLinesLength));
+        return $collection->sortByDesc('publishing_date')->values()->all();
     }
 
     /**
