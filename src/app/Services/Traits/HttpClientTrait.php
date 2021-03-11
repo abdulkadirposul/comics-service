@@ -37,7 +37,9 @@ trait HttpClientTrait
         $client = $this->createClient();
         $res = $client->get($url, $params);
 
-        $this->requestExceptionHandler($res, $url);
+        if ($this->requestExceptionHandler($res, $url)) {
+            return (object)[];
+        }
 
         return $res->object();
     }
@@ -67,12 +69,15 @@ trait HttpClientTrait
     /**
      * @param Response $response
      * @param string $url
+     * @return bool
      * @throws HttpException
      */
-    private function requestExceptionHandler(Response $response, string $url): void
+    private function requestExceptionHandler(Response $response, string $url): bool
     {
         if ($response->clientError() || $response->serverError()) {
-            throw new HttpException(500, 'API Request Exception : ' . $response->body());
+            return true;
         }
+
+        return false;
     }
 }

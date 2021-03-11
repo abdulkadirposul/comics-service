@@ -16,6 +16,7 @@ class ComicsController extends Controller
 
     public function index(ComicsListRequest $request)
     {
-        return [];
+        //remember used parameters below are always present. In ComicsListRequest it is handled
+        return $this->comicsService->getList($request->input('xkcd_length'), $request->input('poorly_draw_lines_length'));
     }
 }
