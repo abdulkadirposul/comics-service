@@ -28,20 +28,49 @@ trait HttpClientTrait
     /**
      * @param string $url
      * @param array $params
-     * @return object
-     * @throws AuthorizationException
+     * @return Response|null
      */
-    private function httpGet(string $url, array $params = []): object
+    private function httpGet(string $url, array $params = []): ?Response
     {
         $url = $this->getUrl($url);
         $client = $this->createClient();
         $res = $client->get($url, $params);
 
         if ($this->requestExceptionHandler($res, $url)) {
-            return (object)[];
+            return null;
         }
 
-        return $res->object();
+        return $res;
+    }
+
+    /**
+     * @param string $url
+     * @param array $params
+     * @return object
+     */
+    private function httpGetObject(string $url, array $params = []): object
+    {
+        $response = $this->httpGet($url, $params);
+        if ($response === null) {
+            return (object) [];
+        }
+
+        return $response->object();
+    }
+
+    /**
+     * @param string $url
+     * @param array $params
+     * @return string
+     */
+    private function httpGetBody(string $url, array $params = []): string
+    {
+        $response = $this->httpGet($url, $params);
+        if ($response === null) {
+            return "";
+        }
+
+        return $response->body();
     }
 
     /**
