@@ -12,8 +12,14 @@ docker-compose exec src composer update
 docker-compose exec src php artisan key:generate
 ```
 
+#test
+You can run unit and feature tests as mentioned below
+```
+docker-compose exec src composer test
+```
+
 # navigation
 You can get more info via one of the following links
-- <a href="http://127.0.0.1:8080">Homapage</a>
+- <a href="http://127.0.0.1:8080">Homepage</a>
 - <a href="http://127.0.0.1:8080/api/documentation">Swagger Documentation</a>
 - <a href="http://127.0.0.1:8080/api/comics">Comics Service</a>
