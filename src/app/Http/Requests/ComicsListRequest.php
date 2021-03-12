@@ -27,7 +27,7 @@ class ComicsListRequest extends FormRequest
     {
         return [
             'xkcd_length' => 'int|max:30|min:0',
-            'poorly_draw_lines_length' => 'int|max:30|min:0'
+            'poorly_drawn_lines_length' => 'int|max:30|min:0'
         ];
     }
 
@@ -39,9 +39,9 @@ class ComicsListRequest extends FormRequest
             ]);
         }
 
-        if (!$this->has('poorly_draw_lines_length')) {
+        if (!$this->has('poorly_drawn_lines_length')) {
             $this->merge([
-                'poorly_draw_lines_length' => self::DEFAULT_COMICS_LENGTH
+                'poorly_drawn_lines_length' => self::DEFAULT_COMICS_LENGTH
             ]);
         }
     }

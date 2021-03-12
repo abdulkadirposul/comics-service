@@ -47,7 +47,7 @@ class ComicsTest extends TestCase
      */
     public function test_request_with_valid_params($xkcdLength, $poorlyDrawLinesLength, $expectedLength)
     {
-        $params = "?xkcd_length=".$xkcdLength."&poorly_draw_lines_length=".$poorlyDrawLinesLength;
+        $params = "?xkcd_length=".$xkcdLength."&poorly_drawn_lines_length=".$poorlyDrawLinesLength;
         $response = $this->get('/api/comics'.$params);
         $response->assertStatus(200);
         $response->assertJsonCount($expectedLength);
@@ -61,7 +61,7 @@ class ComicsTest extends TestCase
      */
     public function test_request_with_invalid_params($xkcdLength, $poorlyDrawLinesLength)
     {
-        $params = "?xkcd_length=".$xkcdLength."&poorly_draw_lines_length=".$poorlyDrawLinesLength;
+        $params = "?xkcd_length=".$xkcdLength."&poorly_drawn_lines_length=".$poorlyDrawLinesLength;
         $response = $this->get('/api/comics'.$params);
         $response->assertStatus(422);
     }
